@@ -1,0 +1,86 @@
+CAHIER DES CHARGES - LABYRINTHE PYGAME
+	GAIUS CALOONE - 1ere B
+	
+HISTOIRE DU PROJET:
+
+	- Mon esprit de gogole s'est dit: "Ben tiens, c'est marrant les
+	labyrinthes! Et c'est marrant Python! Et si je me cassais la tête pour
+	combiner Labyrinthe et Python?" et le projet Pygame Labyrinthe est né
+	
+	- Ayant eu des expériences déplaisantes avec Tkinter (merci Snake), 
+	j'ai élu Pygame comme ma librairie principale
+
+
+DESCRIPTION:
+
+	- Souffrance à programmer et à expliquer parce que c'est super répétitif
+	
+	- Les niveaux sont en .txt dans le même fichier que le labyrinthe, on 
+	les lit avec .readlines() pour voir où mettre les murs, le personnage et 
+	la sortie.
+	
+	- Le jeu est programmé avec la bibliothèque Pygame.
+	
+	- Tous les fichiers complémentaires (sprites, images de fond d'écran)
+	sont inclus dans le dossier zip fourni.
+	
+
+PROBLEMES AUXQUELS J'AI DU FAIRE FACE:
+
+	- Problème avec le déplacement du rectangle de collision: solution = 
+	rect.move_ip().
+	
+	- Problème de compatibilité: solution = utiliser l'ordi de l'école (mdr)
+	
+	- Problème de file directory: solution = importer en raw str.
+	
+
+COMPOSANTS DU FICHIER .zip:
+
+	- spriteperso().png est l'image qui sert à afficher le personnage, on 
+	l'appelle sprite.
+	
+	- spritemur().png est l'image qui sert à afficher le mur, on l'appelle
+	sprite aussi.
+	
+	- spriteexit().png est l'image qui sert à afficher la sortie, on 
+	l'appelle aussi sprite.
+	
+	- background.jpg est l'image qui sert comme fond d'écran pour le jeu.
+	
+	- map.txt, map1.txt, map2.txt, map3.txt sont les cartes qui servent à 
+	fabriquer les niveaux.
+	
+	- labyrinthe.py est le fichier python qui contient le programme du jeu
+	à éxécuter.
+	
+
+COMMANDEMENTS:
+
+	- Tant que le rectangle de collision du personnage n'entre pas en
+	contact avec le rectangle de collision d'un mur, le jeu continue.
+	
+	- Le jeu avance d'un niveau si le rectangle de collision du personnage
+	entre en contact avec le rectangle de collision de la sortie.
+	
+
+COMMANDES UTILES:
+
+	- pygame.init(): permet d'initialiser pygame vidéo.
+
+	- xx.get_rect(): permet de créer un rectangle de collision de la taille
+	de l'objet xx.
+	
+	- xx.move_ip(): permet de déplacer le rectangle de collision de l'objet
+	xx.
+
+	- dicKeys: permet de contrôler quelle touche du clavier est enfoncée.
+	
+	- open(xx.xx) permet d'importer le fichier xx et de l'utiliser dans le 
+	programme, ou de convertir le fichier importé en surface ou en objet
+
+
+DEMONSTRATION:
+
+	- Vous pourrez essayer le labyrinthe sur l'ordinateur le plus proche du 
+	tableau numérique.
