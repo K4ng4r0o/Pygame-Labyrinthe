@@ -11,6 +11,8 @@ import pygame
 from pygame.locals import *
 from time import *
 
+pygame.init()
+
 #------------------------------------------------------------------------------
 
 # Tableau des murs
@@ -41,6 +43,7 @@ def Load_Map():
         
         # On lit les chiffres et on place 0 = vide, on voit le fond
         for elem in line:
+            
             if (elem == '1'):
                 Wall_piece = Wall.get_rect()
                 Wall_piece.topleft = (X,Y)
@@ -59,7 +62,31 @@ def Load_Map():
 
 #------------------------------------------------------------------------------
 
-pygame.init()
+# On change le fond d'écran à chaque niveau
+def vérifier_fond():
+
+    if z == 0:
+        Surface_Background =  pygame.image.load(r"./bg1.png")
+        fond = Surface_Background.convert()
+        fenetre.blit(fond, (0,0))
+    
+    elif z == 1:
+        Surface_Background =  pygame.image.load(r"./bg2.png")
+        fond = Surface_Background.convert()
+        fenetre.blit(fond, (0,0))
+    
+    elif z == 2:
+        Surface_Background =  pygame.image.load(r"./bg3.png")
+        fond = Surface_Background.convert()
+        fenetre.blit(fond, (0,0))
+    
+    elif z == 3:
+        Surface_Background =  pygame.image.load(r"./bg4.png")
+        fond = Surface_Background.convert()
+        fenetre.blit(fond, (0,0))
+    
+
+#------------------------------------------------------------------------------
 
 # On permet de rester appuyé sur les flèches
 pygame.key.set_repeat(50, 15)
@@ -74,19 +101,19 @@ Size_Object_Y = 50
 Screen_Width = 500
 Screen_Height = 500
 
+# Taille fenêtre pygame
+fenetre = pygame.display.set_mode((Screen_Width, Screen_Height))
+
 # On ouvre la carte .txt et on lit les nombres
 map = open(r"./map.txt", 'r')
 map_lines = map.readlines()
 
-# Collision de fin d'un niveau
-endRect = pygame.Rect(450, 50, 45, 45)
-
-# Taille fenêtre pygame
-fenetre = pygame.display.set_mode((Screen_Width, Screen_Height))
-
-# On importe le fond d'écran puis on en fait une surface
+# Premier background
 Surface_Background =  pygame.image.load(r"./background.jpg")
 fond = Surface_Background.convert()
+
+# Collision de fin d'un niveau
+endRect = pygame.Rect(450, 50, 45, 45)
 
 # On importe le sprite du perso et on le convertit pour des collisions
 perso = pygame.image.load(r"./spriteperso().png").convert_alpha()
@@ -135,14 +162,15 @@ while continuer:
                 
                 # On bouge le rect de collision s'il n'est pas hors terrain
                 if persoRect.left >= 10:
-                    persoRect.move_ip(-10,0)
+                    persoRect.move_ip(-2,0)
                     
                     # Si ça touche la fin:
                     if persoRect.colliderect(endRect):
                         
+                        vérifier_fond()
+                        
                         # Pour chaque niveau, on se réfère au compteur de niveau
                         if z == 0:
-                            Surface_Background =  pygame.image.load(r"./bg1.jpg")
                             map = open(r"./map1.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -151,7 +179,6 @@ while continuer:
                             z = 1
                             
                         elif z == 1:
-                            pygame.image.load(r"./bg2.jpg")
                             map = open(r"./map2.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -160,7 +187,6 @@ while continuer:
                             z = 2
                             
                         elif z == 2:
-                            pygame.image.load(r"./bg3.jpg")
                             map = open(r"./map3.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -169,7 +195,6 @@ while continuer:
                             z = 3
                             
                         elif z == 3:
-                            pygame.image.load(r"./bg4.jpg")
                             map = open(r"./map4.txt", 'r')
                             map_lines = map.readlines()
                             Load_Map()
@@ -188,15 +213,16 @@ while continuer:
             if dicKeys[K_RIGHT]:
                 
                 # On bouge le rect de collision s'il est dans le terrain
-                if persoRect.righ < Screen_Width:
-                    persoRect.move_ip(10,0)
+                if persoRect.right < Screen_Width:
+                    persoRect.move_ip(2,0)
                     
                     # Si ça touche la fin:
                     if persoRect.colliderect(endRect):
+                        
+                        vérifier_fond()
                            
                         # Pour chaque niveau, on se réfère au compteur de niveau
                         if z == 0:
-                            Surface_Background =  pygame.image.load(r"./bg1.jpg")
                             map = open(r"./map1.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -205,7 +231,6 @@ while continuer:
                             z = 1
                             
                         elif z == 1:
-                            pygame.image.load(r"./bg2.jpg")
                             map = open(r"./map2.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -214,7 +239,6 @@ while continuer:
                             z = 2
                             
                         elif z == 2:
-                            pygame.image.load(r"./bg3.jpg")
                             map = open(r"./map3.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -223,7 +247,6 @@ while continuer:
                             z = 3
                             
                         elif z == 3:
-                            pygame.image.load(r"./bg4.jpg")
                             map = open(r"./map4.txt", 'r')
                             map_lines = map.readlines()
                             Load_Map()
@@ -242,14 +265,15 @@ while continuer:
                 
                 # On bouge le rect du perso s'il est dans la limite du terrain
                 if persoRect.top > 0:
-                    persoRect.move_ip(0,-10)
+                    persoRect.move_ip(0,-2)
                     
                     # Si on touche la sortie:
                     if persoRect.colliderect(endRect):
+                        
+                        vérifier_fond()
                            
                         # Pour chaque niveau, on se réfère au compteur de niveau
                         if z == 0:
-                            Surface_Background =  pygame.image.load(r"./bg1.jpg")
                             map = open(r"./map1.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -258,7 +282,6 @@ while continuer:
                             z = 1
                             
                         elif z == 1:
-                            pygame.image.load(r"./bg2.jpg")
                             map = open(r"./map2.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -267,7 +290,6 @@ while continuer:
                             z = 2
                             
                         elif z == 2:
-                            pygame.image.load(r"./bg3.jpg")
                             map = open(r"./map3.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -276,7 +298,6 @@ while continuer:
                             z = 3
                             
                         elif z == 3:
-                            pygame.image.load(r"./bg4.jpg")
                             map = open(r"./map4.txt", 'r')
                             map_lines = map.readlines()
                             Load_Map()
@@ -295,14 +316,15 @@ while continuer:
                 
                 # On bouge le rect si le perso est dans le terrain
                 if persoRect.bottom < Screen_Height:
-                    persoRect.move_ip(0,10)
+                    persoRect.move_ip(0,2)
                     
                     # Si on touche la fin:
                     if persoRect.colliderect(endRect):
+                        
+                        vérifier_fond()
                           
                         # Pour chaque niveau, on se réfère au compteur de niveau
                         if z == 0:
-                            Surface_Background =  pygame.image.load(r"./bg1.jpg")
                             map = open(r"./map1.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -311,7 +333,6 @@ while continuer:
                             z = 1
                             
                         elif z == 1:
-                            pygame.image.load(r"./bg2.jpg")
                             map = open(r"./map2.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -320,7 +341,6 @@ while continuer:
                             z = 2
                             
                         elif z == 2:
-                            pygame.image.load(r"./bg3.jpg")
                             map = open(r"./map3.txt", 'r')
                             map_lines = map.readlines()
                             Wall_list = []
@@ -329,7 +349,6 @@ while continuer:
                             z = 3
                             
                         elif z == 3:
-                            pygame.image.load(r"./bg4.jpg")
                             map = open(r"./map4.txt", 'r')
                             map_lines = map.readlines()
                             Load_Map()
